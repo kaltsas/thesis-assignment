@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>My Thesis</title>
+</head>
+<body>
+	<style>
+	body {
+	        background-color: #e8eaed;
+	        font-family: Arial, sans-serif;
+	        color: #333;
+	        font-size: 16px;
+	}
+	</style>
+	<div class="container">
+		<div class="row justify-content-center mt-5">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header text-center" >
+						<h4>Your Thesis</h4>
+					</div>
+					<div class="card-body text-center">
+						<th:block th:if="${student.graduate eq false and student.thesisId > 0 and thesis.finalGrade < 0}">
+							<!-- Show message if thesis is not evaluated yet -->
+							<p class="text-muted">Your thesis has not been evaluated yet. Please check back later.</p>
+						</th:block>
+						
+						<th:block th:if="${student.graduate eq false and student.thesisId > 0 and thesis.finalGrade >= 0}">
+							<!-- Show final grade if thesis has been evaluated -->
+							<p class="text-muted">Your thesis has been evaluated and your final grade is:</p>
+							<h2 class="mb-4"><strong th:text="${thesis.finalGrade}"></strong></h2>
+							<a href="/student/deleteThesis" class="btn btn-primary mt-3">Send this to the Secretariat of the School</a>
+						</th:block>
+						
+						<th:block th:if="${student.graduate eq false and student.thesisId < 0}">
+							<!-- Show message if student has not found a supervisor yet -->
+							<p class="text-muted">You have not found a supervisor yet. Please navigate to the subjects section for more information.</p>
+						</th:block>
+						<th:block th:unless="${student.graduate eq false}">
+							<!-- Show message if student has graduated -->
+							<p class="text-muted">You are a graduate. You do not need this app anymore.</p>
+						</th:block>
+						<a href="/student/dashboard" class="btn btn-primary mt-3">Go Back</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

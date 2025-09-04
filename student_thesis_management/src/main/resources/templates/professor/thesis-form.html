@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Rate Thesis</title>
+</head>
+
+<body>
+	
+	<div class="container" style="text-align: center;">
+		<style>
+		body {
+		        background-color: #dce3e3;
+		        font-family: Arial, sans-serif;
+		        color: #333;
+		        font-size: 16px;
+		}
+		
+		.container form {
+			    display: flex;
+			    flex-direction: column;
+			    align-items: center;
+		}
+		</style>
+	
+		<h3>Rate Thesis</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Evaluate the followings</p>
+	
+		<form th:action="@{/professor/calculateFinalGrade}"
+						 th:object="${thesis}" method="POST">
+		
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{thesisId}" />
+			<input type="hidden" th:field="*{title}" />
+			<input type="hidden" th:field="*{professorId}" />
+			<input type="hidden" th:field="*{description}" />
+			<input type="hidden" th:field="*{finalGrade}" />
+			
+			<label for="implementationGrade">Implementation Grade</label>
+			<input type="number" class="form-control mb-4 col-4"
+		  placeholder="implementationGrade" th:field="*{implementationGrade}" step="0.01" min="0" max="10" required><br>
+			
+			<label for="reportGrade">Report Grade</label>
+			<input type="number" class="form-control mb-4 col-4"
+		  placeholder="reportGrade" th:field="*{reportGrade}" step="0.01" min="0" max="10" required><br>
+
+			<label for="presentationGrade">Presentation Grade</label>
+			<input type="number" class="form-control mb-4 col-4"
+		  placeholder="presentationGrade" th:field="*{presentationGrade}" step="0.01" min="0" max="10" required><br>
+				
+			<button type="submit" class="btn btn-info col-2">Submit</button>
+						
+		</form>
+	
+		<hr>
+		<a th:href="@{/professor/showTheses}">Go back to your theses list</a>
+		
+	</div>
+</body>
+
+</html>

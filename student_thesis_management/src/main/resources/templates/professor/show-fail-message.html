@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	    <!-- Required meta tags -->
+    
+    <!-- Set the Character set for the page -->
+    <meta charset="utf-8">
+    
+    <!-- Let the page adapt to client device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Link to external resource (css, search, etc.) -->
+    <!-- Link to Bootstrap CSS in this case -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Applications Directory</title>
+	<style>
+		body {
+			background-color: #dce3e3;
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			line-height: 1.5;
+			color: #333;
+			text-align: center;
+			padding: 50px;
+		}
+
+		h1 {
+			font-size: 36px;
+			margin-top: 0;
+			margin-bottom: 20px;
+			color: #555;
+		}
+
+		p {
+			margin-bottom: 40px;
+		}
+
+		a {
+			display: inline-block;
+			padding: 10px 20px;
+			background-color: #007bff;
+			color: #fff;
+			font-weight: bold;
+			text-decoration: none;
+			border-radius: 4px;
+			transition: background-color 0.3s ease;
+		}
+
+		a:hover {
+			background-color: #0062cc;
+		}
+	</style>
+</head>
+<body>
+	<h1>No Student Found</h1>
+	<p>Sorry, we couldn't find any student that fits your restrictions. Please try again with different criteria.</p>
+	<a th:href="@{/professor/showSubjects}">Go back to Subjects List</a>
+</body>
+</html>

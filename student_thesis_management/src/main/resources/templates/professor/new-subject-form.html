@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Add Subject</title>
+</head>
+
+<body>
+	
+	<div class="container" style="text-align: center;">
+		<style>
+		body {
+		        background-color: #dce3e3;
+		        font-family: Arial, sans-serif;
+		        color: #333;
+		        font-size: 16px;
+		}
+		
+		.container form {
+			    display: flex;
+			    flex-direction: column;
+			    align-items: center;
+		}
+		</style>
+		
+		<h3>Subject Directory</h3>
+		<hr>
+		
+		<p class="h4 mb-4">New Subject </p>
+	
+		<form th:action="@{/professor/addSubject}"
+						 th:object="${subject}" method="POST">
+		
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{subjectId}" />
+			<input type="hidden" th:field="*{professorId}" />
+			<input type="hidden" th:field="*{availability}" />
+			
+			<label for="name">Subject thesis name</label>
+			<input type="text" th:field="*{name}"
+					class="form-control mb-4 col-4" placeholder="Subject thesis name">
+			
+			<label for="description">Description of the subject</label>
+			<input type="text" th:field="*{description}"
+					class="form-control mb-4 col-4" placeholder="Description">
+
+			<label for="numberOfSemesters">Number of semesters for implementation</label>
+			<select id="numberOfSemesters" name="numberOfSemesters" class="form-control mb-4 col-4" th:field="*{numberOfSemesters}">
+			    <option value="1">1 semester</option>
+			    <option value="2">2 semesters</option>
+			    <option value="3">3 semesters</option>
+			</select>
+				
+			<button type="submit" class="btn btn-info col-2">Save Subject</button>
+						
+		</form>
+	
+		<hr>
+		<a th:href="@{/professor/showSubjects}">Go back to Subjects List</a>
+		
+	</div>
+</body>
+
+</html>

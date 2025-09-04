@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    
+    <!-- Set the Character set for the page -->
+    <meta charset="utf-8">
+    
+    <!-- Let the page adapt to client device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Link to external resource (css, search, etc.) -->
+    <!-- Link to Bootstrap CSS in this case -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Subject Directory</title>
+</head>
+
+<body>
+    <div class="container" style="text-align: center;">
+    
+    	<style>
+		body {
+		        background-color: #e8eaed;
+		        font-family: Arial, sans-serif;
+		        color: #333;
+		        font-size: 16px;
+		}
+		
+		p{
+			font-weight: bold;
+		}
+		
+		span{
+			color: #69605f;
+		}
+		
+		</style>
+        <h2 th:text="${subject.name}" class="text-center mb-4 display-4"></h2>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Description: <span th:text="${subject.description}"></span></p>
+                <p>Number of semesters for implementation: <span th:text="${subject.numberOfSemesters}"></span></p>
+                <!-- Add any other information about the subject here -->
+            </div>
+            <div class="col-md-6">
+                <p>Professor's Name: <span th:text="${professor.firstName}">    </span> <span th:text="${professor.lastName}"></span></p>
+                <p>Professor's Specialty: <span th:text="${professor.specialty}"></span></p>
+                <!-- Add any other information about the professor here -->
+            </div>
+        </div>
+        <th:block th:if="${student.thesisId < 0 and student.graduate eq false}">
+	        <form method="POST" th:action="@{/student/applyForSubject(subjectId=${subject.subjectId})}">
+			  <div class="form-group">
+			    <label for="messageInput">Write a message for the professor:</label>
+			    <input type="text" class="form-control" id="messageInput" name="message" placeholder="Enter your message">
+			  </div>
+			  <button type="submit" class="btn btn-primary btn-sm mb-3" onclick="if (!(confirm('Are you sure you want to apply for this subject?'))) return false">Apply for this subject</button>
+			</form>
+		</th:block>
+		<th:block th:unless="${student.thesisId < 0}">
+			<br><br><br>
+			<p>You already have a supervisor. You can't apply.</p>
+		</th:block>
+		<th:block th:if="${student.graduate eq true}">
+			<br><br><br>
+			<p>You have completed your thesis successfully. You can't apply again.</p>
+		</th:block>
+        <a th:href="@{/student/showSubjects}">Go back to Subject list</a>
+    </div>
+    <!-- Add any JS scripts here -->
+</body>
+</html>

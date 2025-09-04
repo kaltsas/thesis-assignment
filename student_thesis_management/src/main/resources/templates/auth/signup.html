@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Register</title>
+</head>
+
+
+<body>
+
+<div class="container" style="text-align: center;">
+<br/><br/>
+<br/><br/>
+
+	<style>
+	    body {
+	        background-color: #f7f7f7;
+	        font-family: Arial, sans-serif;
+	        color: #333;
+	        font-size: 16px;
+	    }
+	 </style>
+
+  <form 
+  action="#" 
+  th:action="@{/save}" th:object="${user}" method="post">
+    <h3>Registration</h3>
+    <input type="text" th:field="*{firstName}" placeholder="First Name" /> <br/><br/>
+    <input type="text" th:field="*{lastName}" placeholder="Last Name" /> <br/><br/>
+    <input type="text" th:field="*{username}" placeholder="Username" /> <br/><br/>
+    <input type="password" th:field="*{password}" placeholder="Password" /> <br/><br/>
+    <select th:field="*{role}" required>
+      <option value="">Select</option>
+      <option value="PROFESSOR">PROFESSOR</option>
+      <option value="STUDENT">STUDENT</option>
+    </select> <br/><br/>
+    
+    <button type="submit" class="btn btn-info col-2">Register</button> 
+    
+    <a th:href="@{/login}" class="btn btn-primary col-2">Back to login</a>
+    
+    <div th:if="${param.error}"><p>Registration Error.</p></div> <br/>
+    
+    <span th:utext="${successMessage}"></span>
+</form>
+</body>
+</html>

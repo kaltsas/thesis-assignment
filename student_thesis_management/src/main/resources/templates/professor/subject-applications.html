@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    
+    <!-- Set the Character set for the page -->
+    <meta charset="utf-8">
+    
+    <!-- Let the page adapt to client device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Link to external resource (css, search, etc.) -->
+    <!-- Link to Bootstrap CSS in this case -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Applications Directory</title>
+</head>
+
+<body>
+
+<div class="container" style="text-align: center;">
+		<style>
+		body {
+		        background-color: #dce3e3;
+		        font-family: Arial, sans-serif;
+		        color: #333;
+		        font-size: 16px;
+		}
+		
+		.container form {
+			    display: flex;
+			    flex-direction: column;
+			    align-items: center;
+		}
+		</style>
+
+	<h3 th:text="'Applications for ' + ${subject.name}" /></h3>
+
+	<hr>	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Student Name</th>
+				<th>Student message</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+		    <!-- Check if students list is empty -->
+		    <th:block th:if="${#lists.isEmpty(applications)}">
+		        <tr>
+		            <td colspan="2" th:text="'There are no applications for this subject.'"></td>
+		        </tr>
+		    </th:block>
+		    <th:block th:unless="${#lists.isEmpty(applications)}">
+		        <tr th:each="student, i : ${students}">
+		            <td th:text="${student.firstName} + ' ' + ${student.lastName}" />
+		            <td th:text="${applications[__${i.index}__].message}" />
+		        </tr>
+		    </th:block>
+		</tbody>	
+	</table>
+	<form method="post" th:action="@{/professor/assignSubject(subjectId=${subject.subjectId})}">
+	    <label>Choose the assignment strategy:</label>
+	    <select name="flag" onchange="showFields()" class="form-control mb-4 col-4">
+	        <option value="1">Pick Random Student</option>
+	        <option value="2">Pick Student with biggest GPA</option>
+	        <option value="3">Pick Student with fewest remaining courses</option>
+	        <option value="4">Pick Student with your restrictions</option>
+	    </select>
+	
+	    <div id="restrictions" style="display:none;">
+	        <label>Threshold for maximum number of remaining courses:</label>
+	        <input type="number" class="form-control mb-4 col-4"
+		  name="numberOfRemainingCourses" id="numberOfRemainingCourses" min="0"><br>
+	        <label>Threshold for minimum value of GPA:</label>
+	        <input type="number" class="form-control mb-4 col-4"
+		  name="grade" id="grade" step="0.01" min="5" max="10"><br>
+	    </div>
+	    
+	
+	    <input  onclick="if (!(confirm('Are you sure you want to assign this thesis?'))) return false" type="submit" value="Assign Subject" class="btn btn-info col-2" />
+	</form>
+	
+	<script>
+	function showFields() {
+	    var selected = document.getElementsByName("flag")[0].value;
+	    var restrictionsDiv = document.getElementById("restrictions");
+	
+	    if (selected === "4") {
+	        restrictionsDiv.style.display = "block";
+	        numberOfRemainingCourses.required = true;
+	        grade.required = true;
+	    } else {
+	        restrictionsDiv.style.display = "none";
+	        numberOfRemainingCourses.required = false;
+	        grade.required = false;
+	    }
+	}
+	
+	document.querySelector("form").addEventListener("submit", function(e) {
+	    var numberOfRemainingCourses = document.getElementById("numberOfRemainingCourses");
+	    var grade = document.getElementById("grade");
+
+	    if (!numberOfRemainingCourses.value) {
+	        numberOfRemainingCourses.value = "0";
+	    }
+
+	    if (!grade.value) {
+	        grade.value = "0";
+	    }
+	});
+	</script>
+
+	<br>
+	<a th:href="@{/professor/showSubjects}">Go back to Subjects List</a>
+	
+</div>
+	
+</body>
+</html>
+

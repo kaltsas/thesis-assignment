@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    
+    <!-- Set the Character set for the page -->
+    <meta charset="utf-8">
+    
+    <!-- Let the page adapt to client device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Link to external resource (css, search, etc.) -->
+    <!-- Link to Bootstrap CSS in this case -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Theses Directory</title>
+</head>
+
+<body>
+
+<div class="container"  style="text-align: center;">
+	<style>
+	body {
+	        background-color: #dce3e3;
+	        font-family: Arial, sans-serif;
+	        color: #333;
+	        font-size: 16px;
+	}
+	</style>
+
+	<h3>Theses Directory</h3>
+	<hr>	
+	<table class="table table-bordered table-striped">
+		<thead class="thead-dark">
+			<tr>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Student</th>
+				<th>Thesis grade</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			<th:block th:if="${#lists.isEmpty(theses)}">
+		        <tr>
+		            <td colspan="4" th:text="'There are no theses yet.'"></td>
+		        </tr>
+		    </th:block>
+		    <th:block th:unless="${#lists.isEmpty(theses)}">
+				<tr th:each="tempThesis, i : ${theses}">	
+					<td th:text="${tempThesis.title}" />
+					<td th:text="${tempThesis.description}" />
+					<td th:text="${students[__${i.index}__].firstName}" />
+					
+					<td th:if="${tempThesis.finalGrade < 0}">
+					    <a th:href="@{/professor/rateThesis(thesisId=${tempThesis.thesisId})}"
+					       class="btn btn-info btn-sm">
+					        Rate
+					    </a>
+					</td>
+					
+					<td th:if="${tempThesis.finalGrade > 0}" th:text="${tempThesis.finalGrade}" />
+									
+				</tr>
+			</th:block>
+		</tbody>		
+	</table>
+	<a th:href="@{/professor/dashboard}">Go back to Professor's Dashboard</a>
+	
+</div>
+	
+</body>
+</html>

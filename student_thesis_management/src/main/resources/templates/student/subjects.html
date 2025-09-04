@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    
+    <!-- Set the Character set for the page -->
+    <meta charset="utf-8">
+    
+    <!-- Let the page adapt to client device -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Link to external resource (css, search, etc.) -->
+    <!-- Link to Bootstrap CSS in this case -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Subjects Directory</title>
+</head>
+
+<body>
+
+<div class="container" style="text-align: center;">
+
+	<style>
+	body {
+	        background-color: #e8eaed;
+	        font-family: Arial, sans-serif;
+	        color: #333;
+	        font-size: 16px;
+	}
+	</style>
+
+	<h3>Subjects Directory</h3>
+	<hr>
+	
+	<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Number of semesters for implementation</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <th:block th:if="${#lists.isEmpty(subjects)}">
+	        <tr>
+	            <td colspan="3" th:text="'There are no subjects.'"></td>
+	        </tr>
+	    </th:block>
+	    <th:block th:unless="${#lists.isEmpty(subjects)}">
+	        <tr th:each="tempSubject : ${subjects}">
+	            <td th:text="${tempSubject.name}" />
+	            <td th:text="${tempSubject.description}" />
+	            <td th:text="${tempSubject.numberOfSemesters}" />
+	
+	            <td>
+	                <!-- Add "view" button/link -->
+	                <a th:href="@{/student/showFormToApplyForSubject(subjectId=${tempSubject.subjectId})}"
+	                    class="btn btn-info btn-sm">
+	                    View more info
+	                </a>
+	            </td>
+	        </tr>
+	     </th:block>
+    </tbody>
+</table>
+
+	<a th:href="@{/student/dashboard}">Go back to Student Dashboard</a>
+	
+</div>
+	
+</body>
+</html>

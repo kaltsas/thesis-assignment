@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Student Dashboard</title>
+	
+	<style>
+	    body {
+	        background-color: #e8eaed;
+	        font-family: Arial, sans-serif;
+	        color: #333;
+	        font-size: 16px;
+	    }
+	    
+	    .container {
+	        max-width: 800px;
+	        margin: 0 auto;
+	        padding: 30px 20px;
+	        display: flex;
+		    flex-direction: column;
+		    justify-content: center;
+	    }
+	    
+	    .platform {
+		    text-align: center;
+		}
+	    
+	    
+	    h2 {
+	        font-size: 36px;
+	        font-weight: bold;
+	        text-align: center;
+	        margin-bottom: 20px;
+	        color: #333;
+	    }
+	    
+	    h4 {
+	        font-size: 24px;
+	        font-weight: normal;
+	        margin-top: 30px;
+	        margin-bottom: 10px;
+	        color: #333;
+	    }
+	    
+	    
+	    
+	    hr {
+	        border: none;
+	        border-top: 2px solid #ddd;
+	        margin: 50px auto;
+	    }
+	    
+	    .btn-primary {
+	        background-color: #536dfe;
+	        border-color: #536dfe;
+	    }
+	    
+	    .btn-primary:hover {
+	        background-color: #3d5afe;
+	        border-color: #3d5afe;
+	    }
+	    
+	    .btn-danger {
+	        background-color: #f44336;
+	        border-color: #f44336;
+	    }
+	    
+	    .btn-danger:hover {
+	        background-color: #e53935;
+	        border-color: #e53935;
+	    }
+	    
+	    .italic{
+	    	font-style: italic;
+	    }
+	    
+	</style>
+</head>
+
+
+<body>
+<div class="container" style="text-align: center;">
+
+  <h2>Welcome to Thesis Management App</h2>
+  <h4 class="platform">The easiest platform to manage your thesis</h4>
+	<br> <br>
+  
+  <h4 class="italic">What would you like to do  <span sec:authentication="name"></span>?</h4>
+  <br>
+
+   <div class="d-flex justify-content-center">
+    	<a th:href="@{/student/showSubjects}" class="btn btn-primary btn-sm mb-3">View Available Subjects</a>
+    	&nbsp;&nbsp;&nbsp;&nbsp;
+    	<a th:href="@{/student/showThesis}" class="btn btn-primary btn-sm mb-3">Manage your thesis</a>
+    	&nbsp;&nbsp;&nbsp;&nbsp;
+    	<a th:href="@{/student/showFormForUpdate}" class="btn btn-primary btn-sm mb-3">Manage personal information</a>
+    	&nbsp;&nbsp;&nbsp;&nbsp;
+    	<a th:href="@{/logout}" class="btn btn-danger btn-sm mb-3">Logout</a>
+    </div>
+    <br><br>
+    <h7>Your role: <span sec:authentication="authorities"></span></h7>
+</div>
+</body>
+</html>
